@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: replikers
+    runtime: docker
+    plan: 0.5c-512mb
+    numInstances: 1
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    disk:
+      name: replikers-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: REPLIKERS_DB_PATH
+        value: /var/data/replikers.db
+      - key: AUTO_ENABLED
+        value: "true"
+      - key: AUTO_INTERVAL_SECONDS
+        value: "600"
+      - key: API_SPORTS_KEY
+        sync: false
+      - key: REPLIKERS_USER
+        sync: false
+      - key: REPLIKERS_PASSWORD
+        sync: false
